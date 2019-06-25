@@ -1,0 +1,15 @@
+Objectives
+
+- Define what the DOM is
+- Understand why DOM Manipulation is Awesome
+- List a few examples of sites that use JS to manipulate
+  the DOM
+- Understand the SELECT, then Manipulate workflow
+
+----- Defining the DOM -----
+
+Document Object Model Tree
+    - The Document Object Model is the interface between 
+    your javascript and HTML + CSS
+
+

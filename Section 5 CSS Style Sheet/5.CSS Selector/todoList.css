@@ -1,0 +1,19 @@
+li {
+    border: 2px solid darkgreen;
+}
+#special {
+    background-color: yellow;
+}
+.completed {
+    text-decoration: line-through;
+}
+
+/* Star */
+
+/* Descendant Selector */
+
+/* Adjacent Selector */
+
+/* Attribute Selector */
+
+/* nth of type */

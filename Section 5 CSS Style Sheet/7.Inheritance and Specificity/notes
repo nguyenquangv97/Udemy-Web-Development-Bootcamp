@@ -1,0 +1,5 @@
+Inheritance - child inherits property from parent
+Specificity - Multiple styles targeting one element
+
+the li is being target by the body (red)
+and ul blue

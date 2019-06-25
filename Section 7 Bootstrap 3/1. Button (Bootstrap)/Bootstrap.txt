@@ -1,0 +1,8 @@
+What is Bootstrap?
+
+- single file of css
+- single file of javascript
+
+we can include them in our own application
+helps us make good looking sites that are responsive
+without having to write a tons of our own code

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form Demo</title>
+</head>
+<body>
+    <!-- action - where the form send data to -->
+    <!-- method - what HTTP method (get/post) -->
+    <!-- if I don't specify a method, it's going to be a GET request -->
+    <h1>Login</h1>
+
+    <form action="http://wikipedia.org" method="GET">
+        <label for="email">Email:</label>
+        <input id="email" type="email" placeholder="email" required>
+
+        <label>Password:</label>
+        <input id="Password" type="password" placeholder="password" required>
+
+        <button>Submit</button>
+    </form>
+    <!-- some text outside the form will be pushed down -->
+</body>
+</html>

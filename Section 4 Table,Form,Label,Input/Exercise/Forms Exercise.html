@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form>
+        <!-- fix "for" or id -->
+        <!-- need to add name -->
+        <label for="firstName"><strong>First Name:</strong></label>
+        <input id="first" type="text" placeholder="John" required>
+        <label for="lastName"><strong>Last Name:</strong></label>
+        <input id="lastName" type="text" placeholder="Smith" required><br>
+
+        <label for="Male">Male</label>
+        <input name="gender" id="Male" type="radio">
+        <label for="Female">Female</label>
+        <input name="gender" id="Female" type="radio">
+        <label for="Others">Others</label>
+        <input name="gender" id="Others" type="radio"><br>
+        
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" placeholder="your email" required>
+        <label for="Password">Password:</label>
+        <input id="Password" type="password" pattern=".{5,10}"
+        required title="5 to 10 characters"><br>
+        
+        Birthday:
+        <select name="month">
+            <option>Month</option>
+            <option>Jan</option>
+            <option>Feb</option>
+            <option>Mar</option>
+            <option>Apr</option>
+            <option>May</option>
+            <option>Jun</option>
+            <option>Jul</option>
+            <option>Aug</option>
+            <option>Sep</option>
+            <option>Oct</option>
+            <option>Nov</option>
+            <option>Dec</option>
+        </select>
+        <select name="day">
+            <option>Day</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+        </select>
+        <select name="year">
+            <option>Year</option>
+            <option>2016</option>
+            <option>2017</option>
+            <option>2018</option>
+            <option>2019</option>
+            <option>2020</option>
+        </select> <br>
+
+        I agree to the terms and conditions
+        <input type="checkbox"> <br>
+
+        <button>Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Color in CSS -
+    - Hexadecimal
+    # + String of 6 hexadecimal numbers(from 0 - F)
+
+    # _ _ (how much red) _ _ (how much green) _ _ (how much blue)
+    
+- colorpicker

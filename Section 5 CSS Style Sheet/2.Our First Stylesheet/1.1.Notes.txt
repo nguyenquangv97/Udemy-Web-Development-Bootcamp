@@ -1,0 +1,9 @@
+CSS - Cascading Style Sheets
+    - the adjectives
+
+General Rule -
+
+selector {
+    property: value;
+    anotherProperty: value;
+}
