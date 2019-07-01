@@ -1,0 +1,14 @@
+we have 3 routes
+    - get("/campgrounds);
+    - post("/campgrounds");
+    - get("/campgrounds/new");
+
+These are RESTful routes
+
+there are 7 of them!
+name        url         verb    description  
+=====================================================
+1. INDEX    /dogs       GET     Display a list of all dog
+2. NEW      /dogs/new   GET     Display form to make a new dog
+3. CREATE   /dogs       POST    Add new dog to DB
+4. SHOW     /dogs/:id   GET     Shows info about one dog
