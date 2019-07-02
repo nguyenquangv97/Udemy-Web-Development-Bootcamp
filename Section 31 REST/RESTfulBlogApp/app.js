@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 // mongoose / model config
-var blogSchema = new mpngoose.Schema({
+var blogSchema = new mongoose.Schema({
     title: String,
     image: String,
     body: String,
@@ -21,9 +21,27 @@ var blogSchema = new mpngoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
-// restful outes
+// Blog.create({
+//     title: "Test Blog",
+//     image: "https://images.unsplash.com/photo-1562077477-eb2409f73c49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+//     body: "Hello this is a blog post",
+// });
+
+// RESTFUL ROUTE    
+
 app.get('/', (req, res) => {
-    res.send("<h1>TESTING</h1>");
+    res.redirect('/blogs');
+});
+
+app.get('/blogs', (req, res) => {
+    Blog.find({}, (err, blogs) => {
+        if(err) {
+            console.log("err");
+        } else {
+            res.render('index', {blogs:blogs});
+        }
+    });
+
 });
 
 var port = process.env.PORT || 9000;

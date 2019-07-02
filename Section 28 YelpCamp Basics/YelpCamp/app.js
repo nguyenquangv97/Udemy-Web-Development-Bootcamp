@@ -5,11 +5,14 @@ var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 
 // connect to local database
-mongoose.connect("mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority", {
-//mongoose.connect("mongodb://localhost/yelp_camp", {
-    useNewUrlParser: true
+mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
+	useNewUrlParser: true,
+	useCreateIndex: true
+}).then(() => {
+	console.log('Connected to DB!');
+}).catch(err => {
+	console.log('ERROR:', err.message);
 });
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // setting the view engine
 
