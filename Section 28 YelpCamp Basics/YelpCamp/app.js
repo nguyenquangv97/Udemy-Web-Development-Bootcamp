@@ -1,8 +1,12 @@
 // import express.js
 var express = require("express");
-var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
+var Campground = require('./models/campground');
+var Comment = require('./models/comments');
+var seedDB = require("./seeds");
+var app = express();
+seedDB();
 
 // connect to local database
 mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
@@ -16,15 +20,7 @@ mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mo
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // setting the view engine
 
-// SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
 
-// compile it into a model 
-var Campground = mongoose.model("Campground", campgroundSchema);
 // create a campground
 
 // landing page
@@ -71,19 +67,15 @@ app.get('/campgrounds/new', (req, res) => {
 // SHOW - show more infor about one campground
 app.get('/campgrounds/:id', (req, res) => {
     // find the campground with provided ID
-    Campground.findById(req.params.id, (err, foundCampground) => {
+    Campground.findById(req.params.id).populate('comments').exec((err, foundCampground) => {
         if(err){
-
+            console.log(err);
         } else {
             res.render('show', {campground:foundCampground});
         }
     });
-
     // render show template with that campground
-    
 });
-
-   
 // start the server 
 app.listen(9000, () => {
     console.log("YelpCamp server started on port: 9000");
