@@ -3,7 +3,7 @@ var express = require("express");
 var bodyParser = require('body-parser');
 var mongoose = require("mongoose");
 var Campground = require('./models/campground');
-var Comment = require('./models/comments');
+var Comment = require('./models/comment');
 var seedDB = require("./seeds");
 var app = express();
 seedDB();
@@ -34,7 +34,7 @@ app.get('/campgrounds', (req, res) => {
     Campground.find((err, allCampgrounds) =>{
         if(err) console.log(err);
         else{
-            res.render("index", {campgrounds: allCampgrounds});
+            res.render("campgrounds/index", {campgrounds: allCampgrounds});
         } 
     });
 });
@@ -61,7 +61,7 @@ app.post('/campgrounds', (req, res) => {
 
 // NEW - show form to create new campgrounds
 app.get('/campgrounds/new', (req, res) => {
-    res.render('new')
+    res.render('campgrounds/new')
 });
 
 // SHOW - show more infor about one campground
@@ -71,11 +71,50 @@ app.get('/campgrounds/:id', (req, res) => {
         if(err){
             console.log(err);
         } else {
-            res.render('show', {campground:foundCampground});
+            res.render('campgrounds/show', {campground:foundCampground});
         }
     });
     // render show template with that campground
 });
+
+//==============
+// Comment routes
+//==============
+
+app.get('/campgrounds/:id/comments/new', (req, res) => {
+    // find campground by id
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err){
+            console.log(err);
+        }
+        res.render('comments/new', {campground:campground});
+    })
+});
+
+app.post('/campgrounds/:id/comments/', (req, res) => {
+    // look up campground using id
+    Campground.findById(req.params.id, (err, campground) => {
+        if(err){
+            res.redirect('/campgrounds');
+        } else {
+            Comment.create(req.body.comment, (err, comment)=> {
+                if(err){
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect(`/campgrounds/${campground._id}`);
+                }
+            });
+        }
+    })
+    // create new comment
+    // connect new comment to campground
+    // redirect to campground show page
+
+}); 
+
+
 // start the server 
 app.listen(9000, () => {
     console.log("YelpCamp server started on port: 9000");
