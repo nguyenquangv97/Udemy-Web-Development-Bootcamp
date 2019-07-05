@@ -6,7 +6,7 @@ var Campground = require('./models/campground');
 var Comment = require('./models/comment');
 var seedDB = require("./seeds");
 var app = express();
-seedDB();
+
 
 // connect to local database
 mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
@@ -17,9 +17,11 @@ mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mo
 }).catch(err => {
 	console.log('ERROR:', err.message);
 });
+// use
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // setting the view engine
-
+app.use(express.static(__dirname + '/public'))
+seedDB();
 
 // create a campground
 
