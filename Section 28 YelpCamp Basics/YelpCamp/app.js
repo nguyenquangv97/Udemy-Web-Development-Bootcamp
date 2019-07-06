@@ -5,24 +5,40 @@ var Campground = require('./models/campground');
 var Comment = require('./models/comment');
 var seedDB = require("./seeds");
 var app = express();
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
+var User = require('./models/user');
 
 
 // connect to local database
-mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
-	useNewUrlParser: true,
+//mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('mongodb://localhost/yelp_camp', {
+    useNewUrlParser: true,
 	useCreateIndex: true
 }).then(() => {
 	console.log('Connected to DB!');
 }).catch(err => {
 	console.log('ERROR:', err.message);
 });
+
 // use
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // setting the view engine
 app.use(express.static(__dirname + '/public'))
 seedDB();
 
-// create a campground
+// passport configuration
+app.use(require('express-session')({
+    secret: "Once again Rusty wins cutest dog!",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // landing page
 app.get('/', (req, res) => {
@@ -112,9 +128,44 @@ app.post('/campgrounds/:id/comments/', (req, res) => {
     // create new comment
     // connect new comment to campground
     // redirect to campground show page
+});
 
-}); 
+//=========
+// AUTH ROUTES
+// ========
 
+// show register form
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+// handle signup
+
+app.post('/register', (req, res) =>{
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, (err, user)=>{
+        if(err){
+            console.log(err);
+            return res.redirect('register');
+        }
+        passport.authenticate("local")(req, res, () => {
+            res.redirect('/campgrounds');
+        });
+    });
+});
+
+// show login form
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/campgrounds',
+    failureRedirect: '/login'
+}),(req, res) => {
+    res.send("LOGIN LOGIC");
+});
 
 // start the server 
 app.listen(9000, () => {
