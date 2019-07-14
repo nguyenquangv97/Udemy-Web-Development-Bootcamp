@@ -31,10 +31,16 @@
         </div>
     </nav>
     <div class="container">
-      <% if(){ %>
-        <div class="alert alert-danger" role="alert"><%= error %></div>
+      <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
       <% } %>
     </div>
     <div class="container">
-      <div class="alert alert-success" role="alert"><%= success %></div>
+      <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+          <%= success %>
+        </div>
+      <% } %>
     </div>

@@ -10,6 +10,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var methodOverride = require('method-override');
 var User = require('./models/user');
+var dotenv = require('dotenv').config();
+
 
 // Requiring routes
 var commentRoutes = require('./routes/comments');
@@ -17,8 +19,7 @@ var campgroundRoute = require('./routes/campgrounds');
 var indexRoutes = require('./routes/index');
 
 // connect to local database
-//mongoose.connect('mongodb+srv://nguyenquangv97:nguyenquang0206@cluster0-7jnzw.mongodb.net/test?retryWrites=true&w=majority', {
-mongoose.connect('mongodb://localhost/yelp_camp', {
+mongoose.connect(process.env.DATABASEURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
@@ -28,8 +29,12 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
   console.log('ERROR:', err.message);
 });
 
+
+
 // use
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set('view engine', 'ejs'); // setting the view engine
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
@@ -53,7 +58,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
-  res.local.success = req.flash('success');
+  res.locals.success = req.flash('success');
   next();
 });
 
@@ -61,6 +66,8 @@ app.use("/", indexRoutes);
 app.use('/campgrounds', campgroundRoute);
 app.use('/campgrounds/:id/comments', commentRoutes);
 
-app.listen(9000, () => {
-  console.log('YelpCamp server started on port: 9000');
+var PORT = process.env.PORT || 9000;
+
+app.listen(PORT, () => {
+  console.log(`YelpCamp server started on port: ${PORT}`);
 });

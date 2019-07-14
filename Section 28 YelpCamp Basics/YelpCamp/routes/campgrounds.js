@@ -9,15 +9,14 @@ router.get('/', (req, res) => {
   Campground.find((err, allCampgrounds) => {
     if (err) console.log(err);
     else {
-      res.render('campgrounds/index', {
-        campgrounds: allCampgrounds
-      });
+      res.render('campgrounds/index', {campgrounds: allCampgrounds });
     }
   });
 });
 // CREATE - add new campgrounds to DB
 router.post('/', middleware.isLoggedIn, (req, res) => {
   var name = req.body.name;
+  var price = req.body.price;
   var image = req.body.image;
   var description = req.body.description;
   var author = {
@@ -26,6 +25,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
   };
   var newCampground = {
     name: name,
+    price: price,
     image: image,
     description: description,
     author: author

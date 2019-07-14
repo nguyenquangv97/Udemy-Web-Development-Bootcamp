@@ -29,7 +29,7 @@ var data = [{
       username: "Jane"
     }
   }
-]
+];
 
 function seedDB() {
   //Remove all campgrounds
@@ -47,7 +47,7 @@ function seedDB() {
       data.forEach(function(seed) {
         Campground.create(seed, function(err, campground) {
           if (err) {
-            console.log(err)
+            console.log(err);
           } else {
             console.log("added a campground");
             //create a comment
@@ -69,7 +69,7 @@ function seedDB() {
           }
         });
       });
-    })
+    });
   });
   //add a few comments
 }
