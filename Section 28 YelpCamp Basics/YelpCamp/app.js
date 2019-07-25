@@ -15,7 +15,7 @@ var dotenv = require('dotenv').config();
 
 // Requiring routes
 var commentRoutes = require('./routes/comments');
-var campgroundRoute = require('./routes/campgrounds');
+var campgroundRoutes = require('./routes/campgrounds');
 var indexRoutes = require('./routes/index');
 
 // connect to local database
@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRoutes);
-app.use('/campgrounds', campgroundRoute);
+app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/comments', commentRoutes);
 
 var PORT = process.env.PORT || 9000;
